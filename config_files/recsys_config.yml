@@ -2,12 +2,12 @@ experiment:
   dataset: ncf_ml1m
   data_config:
     strategy: fixed
-    train_path: ../data/{0}/ml-1m.train.rating
-    test_path: ../data/{0}/ml-1m.test.rating
+    train_path: ../data/amazon_boys_and_girls/trainingset.tsv
+    test_path: ../data/amazon_boys_and_girls/testset.tsv
   binarize: True
   negative_sampling:
     strategy: fixed
-    files: [ "/home/ironman/PycharmProjects/Elliot/data/ncf_ml1m/ml-1m.test.negative" ]
+    files: [ "./results/ncf_ml1m/ml-1m.test.negative" ]
   top_k: 10
   evaluation:
     cutoffs: 10

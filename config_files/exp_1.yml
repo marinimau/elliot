@@ -1,0 +1,35 @@
+experiment:
+  version: 0.3.1
+  dataset: movielens_1m
+  data_config:
+    strategy: fixed
+    train_path: ../data/amazon_boys_and_girls/trainingset.tsv
+    test_path: ../data/amazon_boys_and_girls/testset.tsv
+  binarize: True
+  #negative_sampling:
+  #  strategy: fixed
+  #  files: [ "/home/ironman/PycharmProjects/Elliot/data/ncf_ml1m/ml-1m.test.negative" ]
+  # top_k: 10
+  evaluation:
+    cutoffs: 10
+    simple_metrics: [ nDCG, Recall, HR, Precision, MAP, MRR ]
+  # gpu: 0
+  external_models_path: ../external/models/__init__.py
+  models:
+    external.EASER:
+      meta:
+        verbose: True
+        save_recs: True
+        hyper_max_evals: 1
+        hyper_opt_alg: tpe
+      l2_norm: 1320
+      external.RP3beta: #from TOIS
+        meta:
+          hyper_max_evals: 1
+          hyper_opt_alg: tpe
+          verbose: True
+          save_recs: True
+        neighborhood: 546
+        alpha: 1.0807
+        beta: 0.7029
+        normalize_similarity: True
