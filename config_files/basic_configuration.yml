@@ -10,7 +10,7 @@ experiment:
         features: ../data/cat_dbpedia_movielens_1m/features.tsv
         properties: ../data/cat_dbpedia_movielens_1m/properties.conf
 #  prefiltering:
-#    strategy: user_average # Not applied in the paper experiments
+#  strategy: user_average # Not applied in the paper experiments
   splitting:
     test_splitting:
         strategy: temporal_hold_out
@@ -18,7 +18,7 @@ experiment:
   top_k: 50
   evaluation:
     cutoffs: [10, 5]
-    simple_metrics: [nDCG,Precision,ItemCoverage,EPC,Gini]
+    simple_metrics: [nDCG,Precision,ItemCoverage,EPC,Gini, HR, MRR]
     relevance_threshold: 1
   gpu: 1
   external_models_path: ../external/models/__init__.py

@@ -1,0 +1,57 @@
+experiment:
+  dataset: cat_dbpedia_movielens_1m
+  data_config:
+    strategy: dataset
+    dataloader: KnowledgeChainsLoader
+    dataset_path: ../data/{0}/dataset.tsv
+    side_information:
+        map: ../data/{0}/map.tsv
+        features: ../data/{0}/features.tsv
+        properties: ../data/{0}/properties.conf
+#  prefiltering:
+#  strategy: user_average # Not applied in the paper experiments
+  splitting:
+    test_splitting:
+        strategy: temporal_hold_out
+        test_ratio: 0.2
+  top_k: 50
+  evaluation:
+    cutoffs: [10, 20, 50]
+    simple_metrics: [nDCG] #,Precision,ItemCoverage,EPC,Gini, HR, MRR]
+    relevance_threshold: 1
+  gpu: 1
+  external_models_path: ../external/models/__init__.py
+  models:
+    MostPop:
+      meta:
+        save_recs: True,
+        save_weights: True
+    ItemKNN:
+      meta:
+        save_recs: True
+        save_weights: True
+      neighbors: [ 50, 70, 100 ]
+      similarity: [ cosine, euclidean ]
+      implementation: standard
+    UserKNN:
+      meta:
+        save_recs: True
+        save_weights: True
+      neighbors: [ 50, 70, 100 ]
+      similarity: [ cosine, euclidean ]
+      implementation: standard
+    BPRMF:
+      meta:
+        save_recs: True
+        save_weights: True
+      epochs: 10
+      factors: 10
+      lr: 0.001
+      bias_regularization: 0
+      user_regularization: 0.0025
+      positive_item_regularization: 0.0025
+      negative_item_regularization: 0.0025
+      update_negative_item_factors: True
+      update_users: True
+      update_items: True
+      update_bias: True
